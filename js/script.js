@@ -11,6 +11,8 @@ const wrapGrid = document.querySelector('.wrap-grid');
 
 //grid setup 
 setBtn.addEventListener('click', () => {
+    wrapGrid.innerHTML = ''
+
     // Set dimension grid
     const gridDimension = dimensionLevel.value;
     console.log(gridDimension);
@@ -30,6 +32,7 @@ setBtn.addEventListener('click', () => {
             cellsNumber = 49;
             cellsPerSide = 7;
     }
+
     console.log(cellsNumber);
     console.log(cellsPerSide);
 
@@ -38,4 +41,39 @@ setBtn.addEventListener('click', () => {
     grid.classList.add('grid');
     // Inserisci grid
     wrapGrid.append(grid);
+
+
+    for (let i = 1; i <= cellsNumber; i++) {
+        //gen square
+        const number = i;
+        const square = createGridSquare(number, cellsPerSide)
+        //aggiungi a grid gli square generati
+        grid.append(square);
+
+        square.addEventListener('click', () => square.classList.add('second-click'));
+    }
 })
+
+
+
+
+/**
+ * Functions
+ */
+ function createGridSquare(num, cells) {
+
+    //crea node square
+    const node = document.createElement('div');
+    node.classList.add('square')
+    node.style.width = `calc(100% / ${cells})`;
+    node.style.height = `calc(100% / ${cells})`;
+
+    // Nodo span testo
+    const span = document.createElement('span');
+    span.append(num);
+
+    // add square il contenuto span
+    node.append(span);
+
+    return node;
+}
